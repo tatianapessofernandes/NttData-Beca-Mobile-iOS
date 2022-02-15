@@ -9,15 +9,32 @@ import SwiftUI
 
 struct HomeTableView: View {
     
-    enum Table: Int {
+    enum Tab: Int {
         case filme
-        case descobrir
+        case descubra
     }
     
-    @State private var tabelaSelecionada = Table.filme
+    @State private var tabSelecionada = Tab.filme
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView(selection: $tabSelecionada) {
+            FilmesView().tabItem {
+                tabBarItem(text: "Filmes", image: "film")
+            }.tag(Tab.filme)
+            
+            DescubraView().tabItem {
+                tabBarItem(text: "Descubra", image: "square.stack")
+            }.tag(Tab.descubra)
+        }
+    }
+    
+    private func tabBarItem(text: String, image: String) -> some View {
+        VStack {
+            Image(systemName: image)
+                .imageScale(.large)
+            
+            Text(text)
+        }
     }
 }
 
